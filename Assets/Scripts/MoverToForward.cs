@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class moveForward : MonoBehaviour
+public class MoverToForward : MonoBehaviour
 {
     [SerializeField] private Vector3 _movementDirection;
 
-    void Update()
+    private void Update()
     {
         transform.Translate(_movementDirection, Space.Self);
     }

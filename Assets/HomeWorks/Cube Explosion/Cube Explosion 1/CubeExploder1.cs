@@ -1,13 +1,12 @@
 using UnityEngine;
+using CubeExploder;
 
 [RequireComponent(typeof(Rigidbody))]
-public class CubeExploder2 : MonoBehaviour
+public class CubeExploder1 : MonoBehaviour
 {
     [SerializeField, Min(1)] private int _minCubeForSplit = 2;
     [SerializeField] private int _maxCubeForSplit = 6;
     [SerializeField, Range(0f, 1f)] private float _splitChance = 1.0f;
-    [SerializeField] private float _explosionForce = 5.0f;
-    [SerializeField] private float _explosionRadius = 2.0f;
     [SerializeField, Min(0)] private float _scaleFactor = 0.5f;
     [SerializeField, Range(0f, 1f)] private float _changeFactor = 0.5f;
     [SerializeField] private CubeSpawner _spawner;
@@ -19,15 +18,19 @@ public class CubeExploder2 : MonoBehaviour
     {
         get
         {
-            if (_rigidbody == null)
-            {
-                _rigidbody = GetComponent<Rigidbody>();
-            }
             return _rigidbody;
         }
     }
 
-    private float RandomValue => Random.value;
+    private void Awake()
+    {
+        _rigidbody = GetComponent<Rigidbody>();
+    }
+
+    public void Initialize(float newChance)
+    {
+        _splitChance = newChance;
+    }
 
     private void OnValidate()
     {
@@ -37,12 +40,11 @@ public class CubeExploder2 : MonoBehaviour
 
     private void OnMouseDown()
     {
-        if (RandomValue <= _splitChance)
+        if (Random.value <= _splitChance)
         {
             SplitCube();
         }
 
-        _explosionHandler.AddExplosionForceAtPoint(transform.position, _explosionForce, _explosionRadius);
         Destroy(gameObject);
     }
 
@@ -55,14 +57,39 @@ public class CubeExploder2 : MonoBehaviour
 
         for (int i = 0; i < newCubesCount; i++)
         {
-            CubeExploder2 newCubeExploder = _spawner.Spawn(gameObject.GetComponent<CubeExploder2>(), position, scale * _scaleFactor);
+            CubeExploder1 newCubeExploder = _spawner.Spawn(this, position, scale * _scaleFactor);
 
-            newCubeExploder.ChangeSplitChance(_splitChance * _changeFactor);
+            _explosionHandler.AddExplosionForceTo(newCubeExploder.Rigidbody, position);
+
+            newCubeExploder.Initialize(_splitChance * _changeFactor);
         }
     }
-
-    private void ChangeSplitChance(float newChance)
-    {
-        _splitChance = newChance;
-    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

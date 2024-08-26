@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &6675483711275224098
+--- !u!1 &5572388277085545381
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,12 +8,12 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 9211002102731120163}
-  - component: {fileID: 4204822161011300943}
-  - component: {fileID: 7864280447569549799}
-  - component: {fileID: 1540759555424868070}
-  - component: {fileID: 8104939005781920028}
-  - component: {fileID: 7469355056507634860}
+  - component: {fileID: 7353342153895966844}
+  - component: {fileID: 6315038761472075281}
+  - component: {fileID: 889662279858631374}
+  - component: {fileID: 780237066676713247}
+  - component: {fileID: 2806838208277556648}
+  - component: {fileID: 4579568989798977050}
   m_Layer: 0
   m_Name: CubeExplosive1
   m_TagString: Untagged
@@ -21,36 +21,36 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &9211002102731120163
+--- !u!4 &7353342153895966844
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6675483711275224098}
+  m_GameObject: {fileID: 5572388277085545381}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.57, y: 1.0190077, z: -1.03}
+  m_LocalPosition: {x: 0.66, y: 0.79, z: 0.23}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &4204822161011300943
+--- !u!33 &6315038761472075281
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6675483711275224098}
+  m_GameObject: {fileID: 5572388277085545381}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!23 &7864280447569549799
+--- !u!23 &889662279858631374
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6675483711275224098}
+  m_GameObject: {fileID: 5572388277085545381}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -86,13 +86,13 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &1540759555424868070
+--- !u!65 &780237066676713247
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6675483711275224098}
+  m_GameObject: {fileID: 5572388277085545381}
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -107,13 +107,13 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!54 &8104939005781920028
+--- !u!54 &2806838208277556648
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6675483711275224098}
+  m_GameObject: {fileID: 5572388277085545381}
   serializedVersion: 4
   m_Mass: 1
   m_Drag: 0
@@ -134,13 +134,13 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &7469355056507634860
+--- !u!114 &4579568989798977050
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6675483711275224098}
+  m_GameObject: {fileID: 5572388277085545381}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 56fe56c2ebdc51247bbfc6ca57b5f4a3, type: 3}
@@ -151,4 +151,7 @@ MonoBehaviour:
   _splitChance: 1
   _explosionForce: 50
   _explosionRadius: 4
-  _cubePrefab: {fileID: 6675483711275224098}
+  _scaleFactor: 0.5
+  _changeFactor: 0.5
+  _spawner: {fileID: 0}
+  _explosionHandler: {fileID: 0}

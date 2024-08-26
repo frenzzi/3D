@@ -17,10 +17,8 @@ public class ExplosionHandler : MonoBehaviour
         }
     }
 
-    public void AddExplosionForceTo(GameObject gameObject, Vector3 explodePosition, float explosionForce, float explosionRadius)
+    public void AddExplosionForceTo(Rigidbody rigidbody, Vector3 explodePosition, float explosionForce, float explosionRadius)
     {
-        Rigidbody rigidbody = gameObject.GetComponent<Rigidbody>();
-
         if (rigidbody != null)
         {
             Explode(rigidbody, explodePosition, explosionForce, explosionRadius);

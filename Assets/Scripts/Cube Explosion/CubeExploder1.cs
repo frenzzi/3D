@@ -13,6 +13,20 @@ public class CubeExploder1 : MonoBehaviour
     [SerializeField] private CubeSpawner _spawner;
     [SerializeField] private ExplosionHandler _explosionHandler;
 
+    private Rigidbody _rigidbody;
+
+    public Rigidbody Rigidbody
+    {
+        get
+        {
+            if (_rigidbody == null)
+            {
+                _rigidbody = GetComponent<Rigidbody>();
+            }
+            return _rigidbody;
+        }
+    }
+
     private float RandomValue => Random.value;
 
     private void OnValidate()
@@ -40,14 +54,11 @@ public class CubeExploder1 : MonoBehaviour
 
         for (int i = 0; i < newCubesCount; i++)
         {
-            GameObject newCube = _spawner.Spawn(gameObject, position, scale * _scaleFactor);
+            CubeExploder1 newCubeExploder = _spawner.Spawn(gameObject.GetComponent<CubeExploder1>(), position, scale * _scaleFactor);
 
-            Rigidbody cubeRigidBody = newCube.GetComponent<Rigidbody>();
+            _explosionHandler.AddExplosionForceTo(newCubeExploder.Rigidbody, position, _explosionForce, _explosionRadius);
 
-            _explosionHandler.AddExplosionForceTo(newCube, position, _explosionForce, _explosionRadius);
-
-            CubeExploder1 explodeer = newCube.GetComponent<CubeExploder1>();
-            explodeer.ChangeSplitChance(_splitChance * _changeFactor);
+            newCubeExploder.ChangeSplitChance(_splitChance * _changeFactor);
         }
     }
 

@@ -5,9 +5,9 @@ public class CubeSpawner : MonoBehaviour
 {
     private float RandomValue => Random.value;
 
-    public GameObject Spawn(GameObject preFab, Vector3 position, Vector3 scale)
+    public T Spawn<T>(T prefab, Vector3 position, Vector3 scale) where T : MonoBehaviour
     {
-        GameObject newCube = Instantiate(preFab, position, Quaternion.identity);
+        T newCube = Instantiate(prefab, position, Quaternion.identity);
 
         newCube.transform.localScale = scale;
 

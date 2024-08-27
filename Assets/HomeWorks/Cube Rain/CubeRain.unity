@@ -342,7 +342,7 @@ MonoBehaviour:
   _prefab: {fileID: 7472170529475188777, guid: 28d91e6417708e94eab12c864e05b8a5, type: 3}
   _repeateRate: 1
   _poolCapacity: 1
-  _poolMaxSize: 1
+  _poolMaxSize: 10
 --- !u!4 &779328196
 Transform:
   m_ObjectHideFlags: 0

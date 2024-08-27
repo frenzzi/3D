@@ -339,10 +339,10 @@ MonoBehaviour:
   _endSpawnY: 15
   _startSpawnZ: 0
   _endSpawnZ: 0
-  _prefab: {fileID: 341053979274299053, guid: 28d91e6417708e94eab12c864e05b8a5, type: 3}
-  _repeatRate: 1
-  _poolCapacity: 1
-  _poolMaxSize: 2
+  _prefab: {fileID: 7472170529475188777, guid: 28d91e6417708e94eab12c864e05b8a5, type: 3}
+  _repeatRate: 0.5
+  _poolCapacity: 2
+  _poolMaxSize: 6
 --- !u!4 &779328196
 Transform:
   m_ObjectHideFlags: 0

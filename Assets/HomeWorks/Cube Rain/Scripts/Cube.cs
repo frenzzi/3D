@@ -1,25 +1,19 @@
+using System;
 using System.Collections;
 using UnityEngine;
-using UnityEngine.Events;
+using Random = UnityEngine.Random;
 
 public class Cube : MonoBehaviour
 {
     [SerializeField] private int _minLifeTime = 2;
     [SerializeField] private int _maxLifeTime = 6;
 
-    public event UnityAction<Cube> Died;
+    public event Action<Cube> Died;
 
     private Rigidbody _rigidbody;
     private Renderer _renderer;
     private Color _defaultcolor;
     private bool _isAlive = true;
-
-    public void Reset()
-    {
-        _rigidbody.velocity = Vector3.zero;
-        _rigidbody.angularVelocity = Vector3.zero;
-        transform.rotation = Quaternion.Euler(0, 0, 0);
-    }
 
     private void OnValidate()
     {
@@ -36,13 +30,15 @@ public class Cube : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        GameObject otherObject = collision.gameObject;
-
-        if (otherObject.GetComponent<DeadlyPlatform>() == null)
-            return;
-
-        if (_isAlive)
+        if (_isAlive && collision.gameObject.TryGetComponent<DeadlyPlatform>(out _))
             Release();
+    }
+
+    public void Reset()
+    {
+        _rigidbody.velocity = Vector3.zero;
+        _rigidbody.angularVelocity = Vector3.zero;
+        transform.rotation = Quaternion.Euler(0, 0, 0);
     }
 
     private void Release()
@@ -59,7 +55,7 @@ public class Cube : MonoBehaviour
 
         yield return new WaitForSeconds(lifeTime);
 
-        ChangeColotToDefault();
+        ChangeColorToDefault();
         _isAlive = true;
         Died?.Invoke(this);
     }
@@ -72,7 +68,7 @@ public class Cube : MonoBehaviour
         }
     }
 
-    private void ChangeColotToDefault()
+    private void ChangeColorToDefault()
     {
         _renderer.material.color = _defaultcolor;
     }

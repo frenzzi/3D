@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Pool;
 
@@ -12,7 +13,7 @@ namespace CubeRain
         [SerializeField] private float _startSpawnZ;
         [SerializeField] private float _endSpawnZ;
         [SerializeField] private Cube _prefab;
-        [SerializeField] private float _repeatRate;
+        [SerializeField] private float _repeateRate;
         [SerializeField] private int _poolCapacity;
         [SerializeField] private int _poolMaxSize;
 
@@ -25,7 +26,7 @@ namespace CubeRain
             _pool = new ObjectPool<Cube>
                 (
                 createFunc: () => Create(),
-                actionOnGet: (obj) => Get(obj),
+                actionOnGet: (obj) => ActionOnGet(obj),
                 actionOnRelease: (obj) => obj.gameObject.SetActive(false),
                 actionOnDestroy: (obj) => Destroy(obj),
                 collectionCheck: true,
@@ -46,26 +47,26 @@ namespace CubeRain
                 _endSpawnZ = _startSpawnZ;
         }
 
+        private void Start()
+        {
+            StartCoroutine(Repeater());
+        }
+
         private Cube Create()
         {
-            Cube gameObject = Instantiate(_prefab);
-            return gameObject;
+            return Instantiate(_prefab);
         }
 
         public void Release(Cube obj)
         {
-            obj.Died -= Release;
-
             _pool.Release(obj);
+            obj.Died -= Release;
         }
 
-        private void Start()
+        private void ActionOnGet(Cube obj)
         {
-            InvokeRepeating(nameof(GetCube), 0.0f, _repeatRate);
-        }
+            obj.Died += Release;
 
-        private void Get(Cube obj)
-        {
             SetRandomPositionAt(obj);
             obj.Reset();
             obj.gameObject.SetActive(true);
@@ -74,16 +75,25 @@ namespace CubeRain
         private void GetCube()
         {
             Cube obj = _pool.Get();
-            obj.Died += Get;
         }
 
-        private void SetRandomPositionAt(Cube Obj)
+        private void SetRandomPositionAt(Cube obj)
         {
             float positionX = Mathf.Lerp(_startSpawnX, _endSpawnX, RandomValue);
             float positionY = Mathf.Lerp(_startSpawnY, _endSpawnY, RandomValue);
             float positionZ = Mathf.Lerp(_startSpawnZ, _endSpawnZ, RandomValue);
 
-            Obj.transform.position = new Vector3(positionX, positionY, positionZ);
+            obj.transform.position = new Vector3(positionX, positionY, positionZ);
+        }
+
+        private IEnumerator Repeater()
+        {
+            while (isActiveAndEnabled)
+            {
+                GetCube();
+
+                yield return new WaitForSeconds(_repeateRate);
+            }
         }
     }
 }

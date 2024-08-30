@@ -1,34 +1,19 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
 
 public class AdvancedEnemy : MonoBehaviour
 {
     [SerializeField, Min(0)] private float _speed = 0.5f;
-    
-    [SerializeField] private Queue<AdvancedTarget> _way;
-    [SerializeField] private AdvancedTarget _target;
 
-    private void Start()
-    {
-        if (_way == null)
-            return;
-
-        if (_way.TryDequeue(out _target) == false )
-            Destroy(gameObject);
-    }
+    private AdvancedTarget _target;
 
     private void Update()
     {
         MoveToTarget();
     }
 
-    public void Initialize(AdvancedTarget[] way)
+    public void Initialize(AdvancedTarget target)
     {
-        _way = new Queue<AdvancedTarget>(way);
+        _target = target;
     }
 
     private void MoveToTarget()
@@ -41,10 +26,7 @@ public class AdvancedEnemy : MonoBehaviour
     {
         if (other.gameObject == _target.gameObject)
         {
-            if (_way.TryDequeue(out _target) == false)
-            {
-                Destroy(gameObject);
-            }
+            Destroy(gameObject);
         }
     }
 }

@@ -7,9 +7,6 @@ public class AdvancedSpawner : MonoBehaviour
     [SerializeField] private AdvancedEnemy _enemyPrefab;
     [SerializeField, Min(0)] private float _spawnRate = 1.0f;
 
-    public Vector3 SpawnPosition => transform.position;
-
-
     private void Start()
     {
         StartCoroutine(Repeater());
@@ -17,7 +14,7 @@ public class AdvancedSpawner : MonoBehaviour
 
     private void Spawn()
     {
-        AdvancedEnemy enemy = Instantiate(_enemyPrefab, SpawnPosition, Quaternion.identity);
+        AdvancedEnemy enemy = Instantiate(_enemyPrefab, transform.position, Quaternion.identity);
         enemy.Initialize(_target);
     }
 

@@ -10,13 +10,15 @@ namespace CodeStyleGenuis
         [SerializeField] private Rigidbody _bulletPrefab;
         [SerializeField] private Transform _bulletTarget;
 
-        void Start()
+        private void Start()
         {
             StartCoroutine(Shooting());
         }
 
         private IEnumerator Shooting()
         {
+            var wait = new WaitForSeconds(_timeToShoot);
+
             while (isActiveAndEnabled)
             {
                 var direction = (_bulletTarget.position - transform.position).normalized;
@@ -26,7 +28,7 @@ namespace CodeStyleGenuis
                 newBullet.transform.up = direction;
                 newBullet.velocity = direction * _speed;
 
-                yield return new WaitForSeconds(_timeToShoot);
+                yield return wait;
             }
         }
     }

@@ -10,11 +10,8 @@ namespace CodeStyleGenuis
         private Transform[] _places;
         private int _numberOfCurrentPlace = 0;
 
-        private void Start()
+        private void Awake()
         {
-            if (_placesParent == null || _placesParent.childCount == 0)
-                return;
-
             _places = new Transform[_placesParent.childCount];
 
             for (int i = 0; i < _placesParent.childCount; i++)
@@ -44,12 +41,7 @@ namespace CodeStyleGenuis
 
         private void UpdateNextTarget()
         {
-            _numberOfCurrentPlace++;
-
-            if (_numberOfCurrentPlace >= _places.Length)
-            {
-                _numberOfCurrentPlace = 0;
-            }
+            _numberOfCurrentPlace = (_numberOfCurrentPlace++) % _places.Length;
 
             Vector3 direction = _places[_numberOfCurrentPlace].position - transform.position;
             transform.forward = direction.normalized;
